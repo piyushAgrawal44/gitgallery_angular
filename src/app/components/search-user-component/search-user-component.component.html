@@ -1,0 +1,66 @@
+<div class="w-full  text-gray-50">
+    <div class="flex flex-wrap gap-2 px-5">
+        <div class="w-full">
+            <h4 class="font-semibold text-xl sm:text-3xl text-center my-4">GitGallery - Explore GitHub</h4>
+            <div class="mt-2 mb-5 flex justify-center gap-2">
+
+                <div class="relative ">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 cursor-pointer">
+                        <span class="" onclick="copyMyId()" data-bs-toggle="tooltip"
+                        data-bs-placement="top" title="Copy my github id"><i class="bi bi-github"></i></span>
+                    </div>
+                    <input type="text" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "id="username" placeholder="Type name...">
+                </div>
+                <button class="btn btn-primary" onclick="displayUsers()"><i class="bi bi-search"></i></button>
+            </div>
+
+            <div class="row " id="details">
+
+                <div class="col-12 mb-3">
+
+                    <div class="bg-light-dark w-auto" style="position: relative;">
+
+
+                        <div class="contentDiv hide-scrollbar" id="users">
+
+
+                        </div>
+                        <div class="text-center d-none" id="no-user-found">
+                            No user found...
+                        </div>
+
+                        <div class="d-flex justify-content-center mt-4">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" style="display: flex; flex-wrap: wrap;" id="pagination">
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                            <span>Per Page:</span>
+                            <div class="" style="max-width: 250px;">
+                                <select class="form-select" aria-label="Per page" onchange="setPerPage(this)">
+                                    <option selected value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- loader -->
+            <div class="loader-div" id="loader">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+</div>
