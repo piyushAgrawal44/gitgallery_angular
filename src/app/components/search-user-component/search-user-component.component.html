@@ -6,32 +6,32 @@
 
                 <div class="relative ">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 cursor-pointer">
-                        <span class="" onclick="copyMyId()" data-bs-toggle="tooltip" data-bs-placement="top"
+                        <span class="text-black" onclick="copyMyId()" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Copy my github id"><i class="bi bi-github"></i></span>
                     </div>
                     <input type="text"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
                         id="username" placeholder="Type name..." [(ngModel)]="usernameRef">
                 </div>
-                <button class="btn btn-primary" (click)="fetchData()"><i class="bi bi-search"></i></button>
+                <button class="bg-blue-600 text-gray-50 px-3 py-1 rounded-lg" (click)="searchUser()"><i
+                        class="bi bi-search"></i></button>
             </div>
 
-            <div class="mb-3 px-4 ">
+            <div class="mb-3 px-4">
 
-                <div class="bg-[#2A272A] rounded-lg py-10" style="position: relative;">
+                <div class="bg-[#2A272A] rounded-lg py-10 px-3 ">
 
-                    <div
-                        class="flex flex-wrap justify-center  w-full max-h-[calc(100vh-150px)] overflow-y-auto hide-scrollbar gap-3">
-                        <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center "
+                    <div class="flex flex-wrap justify-center w-full gap-3">
+                        <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5"
                             *ngFor="let data of users.items">
                             <a [href]="'./view_repo.html?username=' + data.login"
-                                class="text-decoration-none max-w-full">
-                                <div class="rounded-2xl bg-[#45434C] p-3 lg:p-5 max-w-fit mx-auto">
-                                    <img [src]="data.avatar_url" class="max-w-[100px] object-cover rounded-full"
+                                class="text-decoration-none max-w-fit">
+                                <div class="">
+                                    <img [src]="data.avatar_url" class=" w-[120px]  mx-auto object-cover rounded-full transition duration-500 hover:animate-spin-slow "
                                         alt="avatarImg">
                                     <div class="loader imgLoader"></div>
                                 </div>
-                                <h5 class="mt-2 text-light">{{ data.name ?? data.login }}</h5>
+                                <h5 class="mt-1 text-light">{{ data.name ?? data.login }}</h5>
                             </a>
                         </div>
                     </div>
@@ -42,30 +42,11 @@
                     </div>
 
 
-                    <div class="flex justify-center mt-4">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination" style="display: flex; flex-wrap: wrap;" id="pagination">
-
-                            </ul>
-                        </nav>
+                    <div class="px-10">
+                        <hr class="mt-5 mb-5 bg-gray-500 h-[1px] border-none">
                     </div>
-                    <div class="flex justify-center items-center gap-2 mt-2">
-                        <span>Per Page:</span>
-                        <div class="max-w-[250px]" >
-                           
-
-                            <select id="per_page"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  aria-label="Per page" onchange="setPerPage(this)">
-                                <option selected value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                            
-
-                        </div>
-                    </div>
-
+                    <app-pagination (pageChange)="pageChange($event)" (perPageChange)="perPageChange($event)"
+                        [currentPage]="page" [perPage]="perPage" [totalPages]="totalPages"></app-pagination>
 
                 </div>
             </div>

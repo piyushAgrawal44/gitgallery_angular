@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from  '@angular/common/http';
 import { SearchUserComponentComponent } from './components/search-user-component/search-user-component.component';
 import { SearchRepoComponentComponent } from './components/search-repo-component/search-repo-component.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchUserComponentComponent,
-    SearchRepoComponentComponent
+    SearchRepoComponentComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

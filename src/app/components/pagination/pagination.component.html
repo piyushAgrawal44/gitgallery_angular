@@ -1,0 +1,87 @@
+<div class="block sm:hidden px-3 text-[16px]">
+    <div class="flex flex-1 justify-between items-center gap-1 ">
+        <button type="button"
+            class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border border-e-0  rounded-lg"
+            [class.bg-gray-700]="currentPage === 1" [class.text-gray-50]="currentPage !== 1" [class.hover:text-white]="currentPage !== 1"
+            (click)="prevPage()">
+            Previous
+        </button>
+
+        <div class="inline-block relative mr-1">
+            <select
+                class="block appearance-none w-full text-black border px-3 h-10 pr-5 rounded shadow leading-tight focus:outline-blue-400 focus:shadow-outline"
+                aria-label="Per page" (ngModelChange)="setPerPage($event)"  [(ngModel)]="perPage">
+                <option selected value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+            </div>
+        </div>
+
+
+        <button type="button"
+            class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border border-e-0  rounded-lg"
+            [class.bg-gray-700]="currentPage === totalPages" [class.text-gray-50]="currentPage !== totalPages" [class.hover:text-white]="currentPage !== totalPages" (click)="nextPage()">
+            Next
+        </button>
+    </div>
+</div>
+
+<div class="hidden sm:flex sm:flex-wrap sm:justify-between items-center px-5 gap-3">
+    <div class="flex flex-wrap justify-center  text-[16px]">
+        <button
+            class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border border-e-0  rounded-s-lg "
+            [class.text-gray-400]="currentPage === 1" [class.text-gray-50]="currentPage !== 1"
+            (click)="prevPage()">Prev</button>
+
+        <ng-container *ngFor="let page of pagesArray">
+            <!-- Display the first page button -->
+            <button *ngIf="page !== 0"
+                class="px-3 h-10 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border "
+                [class.bg-gray-700]="currentPage === page"  [class.text-gray-50]="currentPage === page" (click)="setPage(page)">{{ page }}</button>
+
+
+
+
+            <span *ngIf="page === 0"
+                class="px-3 h-10 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border">...</span>
+
+
+        </ng-container>
+
+
+
+        <button
+            class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border border-e-0  rounded-e-lg "
+            [class.text-gray-400]="currentPage === totalPages" [class.text-gray-50]="currentPage !== totalPages"
+            (click)="nextPage()">Next</button>
+    </div>
+
+    <div class="flex justify-center items-center gap-2 text-[16px]">
+        <span>Per Page:</span>
+        <div class="max-w-[250px]">
+            <div class="inline-block relative mr-1">
+                <select
+                    class="block appearance-none w-full text-black border px-4 h-10 pr-8 rounded shadow leading-tight focus:outline-blue-400 focus:shadow-outline"
+                    aria-label="Per page" (ngModelChange)="setPerPage($event)" [(ngModel)]="perPage">
+                    <option selected value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

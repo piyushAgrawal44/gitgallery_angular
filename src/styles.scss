@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .animate-spin-slow {
+        animation: rotateAndReturn 500ms linear;
+    }
+
+    .hover\:animate-none:hover {
+        animation: none;
+    }
+}
+
+@keyframes rotateAndReturn {
+    0% {
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(10deg);
+    }
+    80% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
