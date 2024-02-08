@@ -5,8 +5,8 @@ import { SearchRepoComponentComponent } from './components/search-repo-component
 import { NotfoundComponent } from './components/notfound/notfound.component';
 
 const routes: Routes = [
-  { path: 'search/repo', component: SearchRepoComponentComponent ,pathMatch: 'full'},
-  { path: '', component: SearchUserComponentComponent,pathMatch: 'full' },
+  { path: 'search/repo', component: SearchRepoComponentComponent ,},
+  { path: '', component: SearchUserComponentComponent, },
   { path: '**', component: NotfoundComponent }
 ];
 
