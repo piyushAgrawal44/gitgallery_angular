@@ -1,7 +1,7 @@
 <div class="block sm:hidden px-3 text-[16px]">
     <div class="flex flex-1 justify-between items-center gap-1 ">
         <button type="button"
-            class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border border-e-0  rounded-lg"
+            class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border  rounded-lg"
             [class.bg-gray-700]="currentPage === 1" [class.text-gray-50]="currentPage !== 1" [class.hover:text-white]="currentPage !== 1"
             (click)="prevPage()">
             Prev
@@ -25,7 +25,7 @@
 
 
         <button type="button"
-            class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border border-e-0  rounded-lg"
+            class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border  rounded-lg"
             [class.bg-gray-700]="currentPage === totalPages" [class.text-gray-50]="currentPage !== totalPages" [class.hover:text-white]="currentPage !== totalPages" (click)="nextPage()">
             Next
         </button>
