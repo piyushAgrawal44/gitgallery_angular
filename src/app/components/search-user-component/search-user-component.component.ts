@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { FetchUserService } from 'src/app/services/fetch-user.service';
 
 @Component({
@@ -14,37 +15,50 @@ export class SearchUserComponentComponent implements OnInit {
   page = 1;
   totalPages: number = 0;
   users: any = { total_count: 0, items: [] };
-  isPageLoading:boolean=true;
+  isPageLoading: boolean = true;
+  private fetchDataSubscription: Subscription | undefined;
+
   constructor(private FetchUserService: FetchUserService) {
   }
 
+  ngOnDestroy(): void {
+    // Unsubscribe from the subscription when the component is destroyed
+    if (this.fetchDataSubscription) {
+      this.fetchDataSubscription.unsubscribe();
+    }
+  }
   ngOnInit(): void {
     this.fetchData();
   }
 
   pageChange(val: number = 1): void {
     this.page = val;
-    this.isPageLoading=true;
+    this.isPageLoading = true;
     this.fetchData();
   }
 
   perPageChange(val: number = 10): void {
     this.perPage = val;
-    console.log(val,'perpage');
+    console.log(val, 'perpage');
     this.page = 1;
-    this.isPageLoading=true;
+    this.isPageLoading = true;
     this.fetchData();
   }
 
   fetchData(): void {
 
-    this.FetchUserService.fetchUsers(this.usernameRef, this.perPage, this.page)
+    // Unsubscribe from previous subscription to avoid memory leaks
+    if (this.fetchDataSubscription) {
+      this.fetchDataSubscription.unsubscribe();
+    }
+
+    this.fetchDataSubscription = this.FetchUserService.fetchUsers(this.usernameRef, this.perPage, this.page)
       .subscribe(
         async (response) => {
-          
+
           this.users = response;
 
-          this.isPageLoading=false;
+          this.isPageLoading = false;
           if (this.users.total_count > 1000) {
             this.users.total_count = 1000; // limited by github
           }
@@ -63,7 +77,7 @@ export class SearchUserComponentComponent implements OnInit {
   searchUser(): void {
     this.page = 1;
 
-    this.isPageLoading=true;
+    this.isPageLoading = true;
     this.fetchData();
   }
 

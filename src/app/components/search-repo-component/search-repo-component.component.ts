@@ -7,7 +7,7 @@ import { FetchRepoService } from 'src/app/services/fetch-repo.service';
   styleUrls: ['./search-repo-component.component.scss']
 })
 export class SearchRepoComponentComponent {
-  private subscription: Subscription | undefined;
+  public subscription: Subscription | undefined;
   usernameRef: string = 'piyushAgrawal44';
   query: string = '';
   perPage = 10;
@@ -64,6 +64,11 @@ export class SearchRepoComponentComponent {
 
 
   fetchUserDetails(): void {
+
+    // Unsubscribe from previous subscription to avoid memory leaks
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.subscription = this.FetchRepoService.fetchUserDetails(this.usernameRef)
       .subscribe(
         async (response) => {
