@@ -11,7 +11,6 @@ export class FetchUserService {
   constructor(private http: HttpClient) { }
 
   fetchUsers(username: string, perPage: number, page: number): Observable<any> {
-    console.log(`https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=${perPage}&page=${page}`);
     return this.http.get(`https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=${perPage}&page=${page}`);
   }
 }

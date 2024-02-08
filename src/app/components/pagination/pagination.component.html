@@ -4,7 +4,7 @@
             class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border border-e-0  rounded-lg"
             [class.bg-gray-700]="currentPage === 1" [class.text-gray-50]="currentPage !== 1" [class.hover:text-white]="currentPage !== 1"
             (click)="prevPage()">
-            Previous
+            Prev
         </button>
 
         <div class="inline-block relative mr-1">
@@ -33,26 +33,26 @@
 </div>
 
 <div class="hidden sm:flex sm:flex-wrap sm:justify-between items-center px-5 gap-3">
-    <div class="flex flex-wrap justify-center  text-[16px]">
+    <div class="flex flex-wrap justify-center items-center text-[16px]">
         <button
             class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border border-e-0  rounded-s-lg "
             [class.text-gray-400]="currentPage === 1" [class.text-gray-50]="currentPage !== 1"
             (click)="prevPage()">Prev</button>
 
-        <ng-container *ngFor="let page of pagesArray">
+        <div *ngFor="let page of pagesArray">
             <!-- Display the first page button -->
             <button *ngIf="page !== 0"
-                class="px-3 h-10 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border "
-                [class.bg-gray-700]="currentPage === page"  [class.text-gray-50]="currentPage === page" (click)="setPage(page)">{{ page }}</button>
+                class="px-3 h-10 leading-tight flex items-center  border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-gray-50  border "
+                [class.bg-gray-700]="currentPage === page" [class.bg-gray-800]="currentPage !== page"  [class.text-gray-50]="currentPage === page" (click)="setPage(page)">{{ page }}</button>
 
 
 
 
             <span *ngIf="page === 0"
-                class="px-3 h-10 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border">...</span>
+                class="px-3 h-10 leading-tight flex items-center bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white border">...</span>
 
 
-        </ng-container>
+        </div>
 
 
 

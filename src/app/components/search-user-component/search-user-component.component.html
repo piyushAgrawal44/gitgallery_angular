@@ -1,4 +1,4 @@
-<div class="w-full  text-gray-50">
+<div class="w-full  text-gray-50 relative">
     <div class="flex flex-wrap gap-2">
         <div class="w-full">
             <h4 class="font-semibold text-xl sm:text-3xl text-center my-4">GitGallery - Explore GitHub</h4>
@@ -11,7 +11,8 @@
                     </div>
                     <input type="text"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
-                        id="username" placeholder="Type name..." [(ngModel)]="usernameRef">
+                        id="username" placeholder="Type name..." (keydown.enter)="searchUser()"
+                        [(ngModel)]="usernameRef">
                 </div>
                 <button class="bg-blue-600 text-gray-50 px-3 py-1 rounded-lg" (click)="searchUser()"><i
                         class="bi bi-search"></i></button>
@@ -24,20 +25,21 @@
                     <div class="flex flex-wrap justify-center w-full gap-3">
                         <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5"
                             *ngFor="let data of users.items">
-                            <a [href]="'./view_repo.html?username=' + data.login"
-                                class="text-decoration-none max-w-fit">
+                            <a [href]="'./search/repo?username=' + data.login" class="text-decoration-none max-w-fit">
                                 <div class="">
-                                    <img [src]="data.avatar_url" class=" w-[120px]  mx-auto object-cover rounded-full transition duration-500 hover:animate-spin-slow "
+                                    <img [src]="data.avatar_url"
+                                        class=" w-[120px]  mx-auto object-cover rounded-full transition duration-500 hover:animate-spin-slow "
                                         alt="avatarImg">
                                     <div class="loader imgLoader"></div>
                                 </div>
-                                <h5 class="mt-1 text-light">{{ data.name ?? data.login }}</h5>
+                                <h5 class="mt-1 text-light max-w-[120px]  mx-auto truncate"
+                                    [title]="data.name ?? data.login"> {{data.name ?? data.login }}</h5>
                             </a>
                         </div>
                     </div>
 
 
-                    <div *ngIf="users.items.length === 0">
+                    <div class="text-center" *ngIf="users.items.length === 0">
                         <span class="text-gray-50">No user found...</span>
                     </div>
 
@@ -53,10 +55,14 @@
 
 
 
-            <!-- loader -->
-            <div class="loader-div" id="loader">
-                <div class="loader"></div>
-            </div>
+
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isPageLoading" class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-300 opacity-80 z-50">
+    <div class="flex items-center justify-center h-screen">
+        <div class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-blue-600">
         </div>
     </div>
 </div>

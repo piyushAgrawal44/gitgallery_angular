@@ -1,1 +1,191 @@
-<p>search-repo-component works!</p>
+<div class="p-2 text-gray-50 ">
+    <div class="p-2">
+        <div class="w-full">
+            <h4 class="font-semibold text-xl sm:text-3xl text-center my-4">GitGallery - Explore GitHub</h4>
+            <div class="mt-2 mb-5 flex justify-center gap-2">
+
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 cursor-pointer">
+                        <span class="text-black" onclick="copyMyId()" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Copy my github id"><i class="bi bi-github"></i></span>
+                    </div>
+                    <input type="text"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
+                        id="username" placeholder="Type name..." [(ngModel)]="usernameRef">
+                </div>
+                <button class="bg-blue-600 text-gray-50 px-3 py-1 rounded-lg" (click)="searchUser()"><i
+                        class="bi bi-search"></i></button>
+            </div>
+
+            <div class="flex flex-wrap text-sm" id="details">
+                <div class="w-full md:w-[25%] p-2  text-center mb-3">
+                    <div class="bg-[#2A272A]  rounded-2xl p-5" style="max-width: 100%;">
+                        <h5 class="text-start mb-3"><u>About:</u></h5>
+                        <div class="flex flex-col justify-center relative">
+                            <img [src]="userDetails.avatar_url"
+                                class="w-[100px] max-w-full mx-auto rounded-full transition duration-500 hover:animate-spin-slow "
+                                id="avatarImg" alt="avatar">
+                            <div *ngIf="isImageLoading"
+                                class="absolute top-0  w-[100px] left-[calc(50%-50px)] h-full flex justify-center items-center bg-gray-300  z-50">
+                                <div class="flex items-center justify-center h-screen">
+                                    <div
+                                        class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-blue-600">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="mt-2 name text-lg" id="name">{{userDetails.name ?? userDetails.login}}</h5>
+
+                        <p class="text-start my-2" id="bio">
+                            {{userDetails.bio ?? "Github User"}}
+                        </p>
+
+                        <div class="flex justify-between mb-2" style="font-size: 12px;">
+                            <span class="my-1 ">Followers: <span
+                                    id="followers">{{userDetails.followers??0}}</span></span>
+                            <span class="my-1 ">Public Repo: <span
+                                    id="total_repos">{{userDetails.public_repos??0}}</span></span>
+                        </div>
+
+                        <hr style="background-color: white; height: 2px;" />
+
+                        <div class="flex gap-2  items-center my-3">
+                            <div class="social_icons">
+                                📂
+                            </div>
+                            <div class="text-start overflow-hidden">
+                                <span class="block" style="color: rgb(170, 170, 170);">GITHUB URL</span>
+                                <span class="block text-blue-500 truncate" id="githuburl"><a data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="{{userDetails.html_url}}"
+                                        class="text-decoration-none"
+                                        href="{{userDetails.html_url}}">@{{userDetails.login}}</a></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-2 flex gap-2 text-light items-center mb-3 ">
+                            <div class="social_icons">
+                                📬
+                            </div>
+                            <div class="text-start social_links">
+                                <span class="block" style="color: rgb(170, 170, 170);">EMAIL</span>
+                                <span class="block text-overflow-ellipsis" id="emailid"><a title="{{userDetails.email}}"
+                                        class="text-decoration-none"
+                                        href="mailto:{{userDetails.email}}">{{userDetails.email??"NA"}}</a></span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2 text-light items-center mb-3">
+                            <div class="social_icons">
+                                📍
+                            </div>
+                            <div class="text-start social_links">
+                                <span class="block" style="color: rgb(170, 170, 170);">LOCATION</span>
+                                <span class="block " id="location"><span title="{{userDetails.location}}"
+                                        class="text-decoration-none">{{userDetails.location ??"NA"}}</span></span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="w-full md:w-[75%] p-2 mb-3">
+
+                    <div class="bg-[#2A272A]  rounded-2xl p-5" style="position: relative;">
+                        <div class="mb-3 grid sm:flex gap-2 justify-between items-center">
+                            <h5 class="text-start" style="flex-shrink: 0;"><u>Repositories:</u></h5>
+
+
+                            <div class="relative ">
+                                <div (click)="searchRepoForQuery()"
+                                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 cursor-pointer"
+                                    title="Click to search">
+                                    <span class="text-black" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Copy my github id"><i class="bi bi-search"></i></span>
+                                </div>
+                                <input type="text"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
+                                    placeholder="Type repo name..." [(ngModel)]="query"
+                                    (keydown.enter)="searchRepoForQuery()">
+
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap justify-center sm:justify-start w-full relative">
+                            <div class=" p-2 w-full xm:w-[50%] lg:w-[33%] " *ngFor="let repo of repos.items"
+                                (click)="openModal(repo)">
+                                <div
+                                    class="cursor-pointer text-start border-[2px] w-full border-gray-700 rounded-2xl py-2 px-3 h-[100px] ">
+                                    <div class="mb-2 flex items-center gap-2">
+                                        <div [title]="repo.name"
+                                            class="text-lg font-medium max-w-full truncate">{{ repo.name
+                                            }}</div>
+
+                                        <a href="{{ repo.html_url }}" target="_blank"
+                                            class="text-decoration-none text-blue-500"><i
+                                                class="bi bi-link-45deg"></i></a>
+                                    </div>
+                                    <h6 class="text-gray-300 cursor-pointer line-clamp-2" [title]="repo.description">{{
+                                        repo.description || 'Github Repo' }}</h6>
+
+                                </div>
+                            </div>
+
+                            <div class="text-center" *ngIf="repos.items.length === 0">
+                                <span class="text-gray-50">No repo found...</span>
+                            </div>
+
+                            <div *ngIf="isRepoLoading"
+                                class="absolute w-full h-full flex justify-center items-center bg-gray-300 opacity-80 z-50">
+                                <div class="flex items-center justify-center h-screen">
+                                    <div
+                                        class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-blue-600">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-10">
+                            <hr class="mt-5 mb-5 bg-gray-500 h-[1px] border-none">
+                        </div>
+
+                        <app-pagination (pageChange)="pageChange($event)" (perPageChange)="perPageChange($event)"
+                            [currentPage]="page" [perPage]="perPage" [totalPages]="totalPages"></app-pagination>
+
+                    </div>
+                </div>
+            </div>
+
+            <app-modal *ngIf="isModalOpen" (closeModalEvent)="closeModal()">
+                <!-- Content to display in the modal -->
+                <h1 class="text-xl font-bold mb-2"><span [title]="selectedModal.name"
+                        class="cursor-pointer text-lg font-medium truncate">{{ selectedModal.name
+                        }}</span>&nbsp;&nbsp;<a href="{{ selectedModal.html_url }}" target="_blank"
+                        class="text-decoration-none text-blue-500"><i class="bi bi-link-45deg"></i></a></h1>
+                <p class="text-gray-300">{{
+                    selectedModal.description || 'Github Repo' }}</p>
+                <div *ngIf="selectedModal.topics.length > 0">
+                    <p class="mt-2">Topics:</p>
+
+                    <div class="mt-2 flex gap-2 w-auto hide-scrollbar overflow-x-auto">
+                        <span *ngFor="let topic of selectedModal.topics"
+                            class="px-2 py-[2px] rounded-full text-center rounded-pill border-[1px] border-gray-500 text-[10px]">{{
+                            topic }}</span>
+                    </div>
+
+                </div>
+            </app-modal>
+
+
+
+            <!-- loader -->
+            <div class="loader-div" id="loader">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
