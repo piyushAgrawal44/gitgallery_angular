@@ -1,43 +1,55 @@
-# Fyle Frontend Challenge
 
-## Who is this for?
+## Assignment Details
+I have implemented this assignment using the Angular framework only, as instructed. Additionally, I forked the provided repository and worked on my assignment within the forked repository only. I have also written test case for 1 service and 1 component
 
-This challenge is meant for candidates who wish to intern at Fyle and work with our engineering team. The candidate should be able to commit to at least 6 months of dedicated time for internship.
 
-## Why work at Fyle?
+# GitGallery - Explore GitHub
 
-Fyle is a fast-growing Expense Management SaaS product. We are ~40 strong engineering team at the moment. 
+GitGallery is a web application built with Angular, designed to help users explore GitHub repositories with ease. With GitGallery, users can search for repositories, view details of individual repositories, and explore trending repositories across various programming languages.
 
-We are an extremely transparent organization. Check out our [careers page](https://careers.fylehq.com) that will give you a glimpse of what it is like to work at Fyle. Also, check out our Glassdoor reviews [here](https://www.glassdoor.co.in/Reviews/Fyle-Reviews-E1723235.htm). You can read stories from our teammates [here](https://stories.fylehq.com).
 
-## Challenge outline
+## Features
+- **Search Repositories**: Easily search for repositories by entering keywords or phrases.
+- **View Repository Details**: Get detailed information about each repository, including the owner, description, stars, forks, and more.
+- **Explore Trending Repositories**: Discover trending repositories across different programming languages and categories.
+- **User-Friendly Interface**: Intuitive and responsive user interface for seamless navigation and interaction.
 
-This challenge involves implementing application using github api. 
-
-The services that you need to use are already implemented - check out ApiService.
-
-You can see details of this challenge [here](https://fyleuniverse.notion.site/fyleuniverse/Fyle-Frontend-development-challenge-cb5085e5e0864e769e7b98c694400aaa)
-
-__Note__ - This challenge is in angular. We work on angular frameworks & after you join we expect the same from you. Hence it is required to complete this assignement in angular itself.
-
-## What happens next?
-
-You will hear back within 48 hours from us via email.
+## Technologies Used
+- **Angular**: Frontend framework used for building the application.
+- **GitHub API**: Integration with the GitHub API to fetch repository data.
+- **HTML/CSS/JavaScript**: Standard web technologies for structuring, styling, and scripting the application.
 
 ## Installation
+To run GitGallery locally, follow these steps:
 
-1. Fork this repository to your github account.
-2. Clone the forked repository and proceed with steps mentioned below.
+1. Clone the GitGallery repository to your local machine.
+git clone https://github.com/piyushAgrawal44/gitgalley_angular.git
 
-### Install requirements
-* Install angular cli [Ref](https://angular.io/cli)
-* `npm install` in this repository 
+2. Navigate to the project directory.
+cd gitgalley_angular
 
-## Development server
+3. Install dependencies using npm.
+npm install
 
-Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+4. Start the development server.
+ng serve
 
-## Further help
+5. Open your web browser and visit `http://localhost:4200` to view the application.
 
-Visit the [Angular Documentation](https://angular.io/guide/styleguide) to learn more.
-Styling is to be strictly done with [Tailwind](https://tailwindcss.com/docs/installation).
+
+## Contributing
+Contributions to GitGallery are welcome! If you would like to contribute to the project, please follow these guidelines:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with descriptive commit messages.
+4. Push your changes to your fork.
+5. Submit a pull request to the main repository's `develop` branch.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+If you have any questions or suggestions regarding GitGallery, feel free to contact us at gitgallery@example.com.
+
+Happy Exploring GitHub with GitGallery! 🚀

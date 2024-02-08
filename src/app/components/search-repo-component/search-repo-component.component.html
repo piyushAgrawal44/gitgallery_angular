@@ -11,7 +11,7 @@
                     </div>
                     <input type="text"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
-                        id="username" placeholder="Type name..." [(ngModel)]="usernameRef">
+                        id="username" placeholder="Type name..." [(ngModel)]="usernameRef" (keydown.enter)="searchUser()">
                 </div>
                 <button class="bg-blue-600 text-gray-50 px-3 py-1 rounded-lg" (click)="searchUser()"><i
                         class="bi bi-search"></i></button>
