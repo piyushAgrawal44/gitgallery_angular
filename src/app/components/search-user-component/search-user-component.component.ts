@@ -17,6 +17,7 @@ export class SearchUserComponentComponent implements OnInit {
   totalPages: number = 0;
   users: any = { total_count: 0, items: [] };
   isPageLoading: boolean = true;
+  imageLoading: { [key: string]: boolean } = {};
   private fetchDataSubscription: Subscription | undefined;
 
   constructor(private toastr: ToastrService, private FetchUserService: FetchUserService) {
@@ -28,6 +29,7 @@ export class SearchUserComponentComponent implements OnInit {
       this.fetchDataSubscription.unsubscribe();
     }
   }
+
   ngOnInit(): void {
     this.fetchData();
   }
@@ -57,12 +59,23 @@ export class SearchUserComponentComponent implements OnInit {
       .subscribe(
         async (response) => {
 
+          
           this.users = response;
 
           this.isPageLoading = false;
           if (this.users.total_count > 1000) {
             this.users.total_count = 1000; // limited by github
           }
+
+          response.items.forEach((user: { avatar_url: string }) => {
+            this.imageLoading[user.avatar_url] = false;
+          });
+
+          setTimeout(() => {
+            response.items.forEach((user: { avatar_url: string }) => {
+              this.imageLoading[user.avatar_url] = true;
+            });
+          }, 2000);
 
           this.totalPages = Math.ceil(this.users.total_count / this.perPage);
           // usersReference = users;
@@ -95,6 +108,11 @@ export class SearchUserComponentComponent implements OnInit {
       );
   }
 
+  onImageLoad(url: string) {
+   
+    this.imageLoading[url] = true;
+    console.log(url)
+  }
 
   searchUser(): void {
     this.page = 1;

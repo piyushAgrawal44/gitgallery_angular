@@ -29,13 +29,13 @@
                         <div class="flex flex-wrap justify-center w-full gap-3">
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5"
                                 *ngFor="let data of users.items">
-                                <a routerLink="./search/repo" [queryParams]="{ username: data.login }" routerLinkActive="active" class="text-decoration-none max-w-fit">
-                                    <div class="">
-                                        <img [src]="data.avatar_url"
+                                <a routerLink="./search/repo" [queryParams]="{ username: data.login }" routerLinkActive="active" class="block text-decoration-none max-w-fit mx-auto">
+                                    
+                                        <img *ngIf="imageLoading[data.avatar_url]" load="onImageLoad(data.avatar_url)" [src]="data.avatar_url"
                                             class="w-[150px] xm:w-[120px]  mx-auto object-cover rounded-full transition duration-500 hover:animate-spin-slow "
                                             alt="avatarImg">
-                                        <div class="loader imgLoader"></div>
-                                    </div>
+                                        <div *ngIf="!imageLoading[data.avatar_url]" class="w-[150px] xm:w-[120px] h-[150px] xm:h-[120px] mx-auto rounded-full animate-shimmer"></div>
+                                    
                                     <h5 class="mt-1 text-light max-w-[120px]  mx-auto truncate"
                                         [title]="data.name ?? data.login"> {{data.name ?? data.login }}</h5>
                                 </a>
@@ -53,43 +53,43 @@
 
                         <div class="flex flex-wrap justify-center w-full gap-3">
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
-                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-[150px] h-[150px] sm:w-20 sm:h-20 mx-auto  rounded-full animate-shimmer"></div>
                                 <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
                             </div>
                             

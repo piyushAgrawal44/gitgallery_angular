@@ -23,7 +23,10 @@
                 <div class="w-full md:w-[25%] p-2  text-center mb-3">
                     <div class="bg-[#2A272A]  rounded-2xl p-5" style="max-width: 100%;">
                         <h5 class="text-start text-lg mb-3"><u>About:</u></h5>
-                        <div *ngIf="!isUserLoading">
+                        <div *ngIf="!isUserLoading && !userDetails.name">
+                        No user found...
+                        </div>
+                        <div *ngIf="!isUserLoading && userDetails.name">
                             <div class="flex flex-col justify-center relative">
                                 <img [src]="userDetails.avatar_url"
                                     class="w-[100px] max-w-full mx-auto rounded-full transition duration-500 hover:animate-spin-slow "
