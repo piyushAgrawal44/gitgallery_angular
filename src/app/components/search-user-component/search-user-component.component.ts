@@ -69,12 +69,28 @@ export class SearchUserComponentComponent implements OnInit {
         },
         (error) => {
           this.isPageLoading = false;
-          this.toastr.error("Internal server error.", 'Error', {
-            timeOut: 3000 ,
-            positionClass: 'toast-top-right',
-            toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
-          });
-          // Handle error
+          if (error.status === 404) {
+            // User not found
+            this.toastr.error("User not found.", 'Error', {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+              toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+            });
+          } else if (error.status === 403) {
+            // Rate limit exceeded
+            this.toastr.error("API rate limit exceeded. Please try again later.", 'Error', {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+              toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+            });
+          } else {
+            // Default error message for other cases
+            this.toastr.error("Internal server error.", 'Error', {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+              toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+            });
+          }
         }
       );
   }

@@ -1,16 +1,17 @@
+<!-- In mobile we will display only next and prev button -->
 <div class="block sm:hidden px-3 text-[16px]">
     <div class="flex flex-1 justify-between items-center gap-1 ">
-        <button type="button"
+        <button type="button" data-mobile-id="prev_btn"
             class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border  rounded-lg"
-            [class.bg-gray-700]="currentPage === 1" [class.text-gray-50]="currentPage !== 1" [class.hover:text-white]="currentPage !== 1"
-            (click)="prevPage()">
+            [class.bg-gray-700]="currentPage === 1" [class.text-gray-50]="currentPage !== 1"
+            [class.hover:text-white]="currentPage !== 1" (click)="prevPage()">
             Prev
         </button>
 
         <div class="inline-block relative mr-1">
-            <select
+            <select data-mobile-id="per_page_selector"
                 class="block appearance-none w-full text-black border px-3 h-10 pr-5 rounded shadow leading-tight focus:outline-blue-400 focus:shadow-outline"
-                aria-label="Per page" (ngModelChange)="setPerPage($event)"  [(ngModel)]="perPage">
+                aria-label="Per page" (ngModelChange)="setPerPage($event)" [(ngModel)]="perPage">
                 <option selected value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
@@ -24,9 +25,10 @@
         </div>
 
 
-        <button type="button"
+        <button type="button" data-mobile-id="next_btn"
             class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700   border  rounded-lg"
-            [class.bg-gray-700]="currentPage === totalPages" [class.text-gray-50]="currentPage !== totalPages" [class.hover:text-white]="currentPage !== totalPages" (click)="nextPage()">
+            [class.bg-gray-700]="currentPage === totalPages" [class.text-gray-50]="currentPage !== totalPages"
+            [class.hover:text-white]="currentPage !== totalPages" (click)="nextPage()">
             Next
         </button>
     </div>
@@ -34,35 +36,31 @@
 
 <div class="hidden sm:flex sm:flex-wrap sm:justify-between items-center px-5 gap-3">
     <div class="flex flex-wrap justify-center items-center text-[16px]">
-        <button
+        <button data-desktop-id="prev_btn"
             class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border border-e-0  rounded-s-lg "
             [class.text-gray-400]="currentPage === 1" [class.text-gray-50]="currentPage !== 1"
             (click)="prevPage()">Prev</button>
 
-        <div *ngFor="let page of pagesArray">
-            <!-- Display the first page button -->
+        <div *ngFor="let page of pagesArray" data-desktop-id="pagination_btn">
+            <!-- display buttons -->
             <button *ngIf="page !== 0"
                 class="px-3 h-10 leading-tight flex items-center  border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-gray-50  border "
-                [class.bg-gray-700]="currentPage === page" [class.bg-gray-800]="currentPage !== page"  [class.text-gray-50]="currentPage === page" (click)="setPage(page)">{{ page }}</button>
+                [class.bg-gray-700]="currentPage === page" [class.bg-gray-800]="currentPage !== page"
+                [class.text-gray-50]="currentPage === page" (click)="setPage(page)">{{ page }}</button>
 
 
-
-
+            <!-- Display dots -->
             <span *ngIf="page === 0"
                 class="px-3 h-10 leading-tight flex items-center bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white border">...</span>
-
-
         </div>
 
-
-
-        <button
+        <button data-desktop-id="next_btn"
             class="px-3 h-10 ms-0 leading-tight  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white  border border-e-0  rounded-e-lg "
             [class.text-gray-400]="currentPage === totalPages" [class.text-gray-50]="currentPage !== totalPages"
             (click)="nextPage()">Next</button>
     </div>
 
-    <div class="flex justify-center items-center gap-2 text-[16px]">
+    <div class="flex justify-center items-center gap-2 text-[16px]" data-desktop-id="per_page_selector">
         <span>Per Page:</span>
         <div class="max-w-[250px]">
             <div class="inline-block relative mr-1">

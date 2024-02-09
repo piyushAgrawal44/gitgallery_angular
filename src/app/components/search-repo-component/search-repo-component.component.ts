@@ -34,7 +34,6 @@ export class SearchRepoComponentComponent {
   isModalOpen: boolean = false;
 
 
-
   ngOnInit(): void {
     this.fetchUserDetails();
   }
@@ -49,7 +48,6 @@ export class SearchRepoComponentComponent {
     this.perPage = val;
     this.page = 1;
     this.isRepoLoading = true;
-    this.fetchTotalRepo();
     this.fetchData();
   }
 
@@ -70,32 +68,21 @@ export class SearchRepoComponentComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+
+
     this.subscription = this.FetchRepoService.fetchUserDetails(this.usernameRef)
       .subscribe(
         async (response) => {
 
           this.userDetails = response;
-          if (!this.query) {
-            // query is blank
-            this.repos.total_count = this.userDetails.public_repos;
-            this.public_repo_count = this.userDetails.public_repos;
-            this.totalPages = Math.ceil(this.repos.total_count / this.perPage);
-          }
-          else {
-            this.fetchTotalRepo();
-          }
           this.fetchData();
         },
         (error) => {
-          console.error(error,"hello");
+
           this.isRepoLoading = false;
           this.isUserLoading = false;
-          this.toastr.error("Internal server error.", 'Error', {
-            timeOut: 3000 ,
-            positionClass: 'toast-top-right',
-            toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
-          });
-          
+          this.handleFetchError(error);
+
         }
       );
   }
@@ -109,16 +96,14 @@ export class SearchRepoComponentComponent {
         .subscribe(
           async (response) => {
             this.repos.total_count = response.total_count;
-          },
-          (error) => {
-            console.error(error);
+
             this.isRepoLoading = false;
             this.isUserLoading = false;
-            this.toastr.error("Internal server error.", 'Error', {
-              timeOut: 3000 ,
-              positionClass: 'toast-top-right',
-              toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
-            });
+          },
+          (error) => {
+            this.isRepoLoading = false;
+            this.isUserLoading = false;
+            this.handleFetchError(error);
           }
         );
     }
@@ -139,19 +124,25 @@ export class SearchRepoComponentComponent {
             this.repos.items = response.items;
           }
 
-          this.isRepoLoading = false;
-          this.isUserLoading=false;
+          if (!this.query) {
+            // query is blank
+            this.repos.total_count = this.userDetails.public_repos;
+            this.public_repo_count = this.userDetails.public_repos;
+            this.totalPages = Math.ceil(this.repos.total_count / this.perPage);
 
+
+            this.isRepoLoading = false;
+            this.isUserLoading = false;
+          }
+          else {
+            this.fetchTotalRepo();
+          }
         },
         (error) => {
-          console.error(error);
+
           this.isRepoLoading = false;
           this.isUserLoading = false;
-          this.toastr.error("Internal server error.", 'Error', {
-            timeOut: 3000 ,
-            positionClass: 'toast-top-right',
-            toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
-          });
+          this.handleFetchError(error);
         }
       );
 
@@ -163,15 +154,38 @@ export class SearchRepoComponentComponent {
     this.isUserLoading = true;
     this.page = 1;
     this.fetchUserDetails();
-    this.fetchData();
-    this.fetchTotalRepo();
   }
 
   searchRepoForQuery(): void {
     this.isRepoLoading = true;
     this.page = 1;
-    this.fetchTotalRepo();
     this.fetchData();
+  }
+
+  handleFetchError(error: any): void {
+
+    if (error.status === 404) {
+      // User not found
+      this.toastr.error("User not found.", 'Error', {
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+      });
+    } else if (error.status === 403) {
+      // Rate limit exceeded
+      this.toastr.error("API rate limit exceeded. Please try again later.", 'Error', {
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+      });
+    } else {
+      // Default error message for other cases
+      this.toastr.error("Internal server error.", 'Error', {
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+      });
+    }
   }
 
   ngOnDestroy() {

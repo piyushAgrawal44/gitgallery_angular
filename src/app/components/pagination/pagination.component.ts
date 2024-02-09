@@ -6,43 +6,47 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent {
-  Array(arg0: number) {
-    throw new Error('Method not implemented.');
-  }
+
   @Input() currentPage: number = 1;
   @Input() totalPages: number = 0;
-  @Input() perPage: number = 0;
+  @Input() perPage: number = 10;
   @Output() pageChange = new EventEmitter<number>();
   @Output() perPageChange = new EventEmitter<number>();
+
   pagesArray: number[] = [];
 
   ngOnChanges() {
+    // we are doing on change because totalpages will be calculated on after API call 
     this.generatePagesArray();
   }
 
   generatePagesArray() {
-
+   
     let index = 1;
     let tempArr = [];
     let dotCnt1 = 0;
     let dotCnt2 = 0;
+
     while (index <= this.totalPages) {
-      const isCurrentPage = this.currentPage === index;
       const isWithinRange1 = (index < (this.currentPage - 1)) && index > 1;
       const isWithinRange2 = (index > (this.currentPage + 1)) && index < this.totalPages;
-      
-      if (isCurrentPage) {
+
+
+      if (this.totalPages <= 5) {
         tempArr.push(index);
       }
-      else if (this.totalPages > 5) {
+      else {
+
         if (isWithinRange1) {
           if (dotCnt1 < 1) {
+            // display dot
             tempArr.push(0);
             dotCnt1++;
           }
         }
         else if (isWithinRange2) {
           if (dotCnt2 < 1) {
+            // display dot
             tempArr.push(0);
             dotCnt2++;
           }
@@ -50,23 +54,19 @@ export class PaginationComponent {
         else {
           tempArr.push(index);
         }
-      }
-      else{
-        tempArr.push(index);
+
       }
 
       index++;
     }
 
-    this.pagesArray=tempArr;
+    this.pagesArray = tempArr;
 
   }
 
   setPerPage(event: any) {
     this.perPage = event;
-    console.log(event)
     this.perPageChange.emit(event);
-    // Do something with the selected value
   }
 
   setPage(val: number) {
