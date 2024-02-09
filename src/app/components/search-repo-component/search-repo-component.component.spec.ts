@@ -16,7 +16,7 @@ describe('SearchRepoComponentComponent', () => {
       imports: [HttpClientTestingModule, FormsModule],
       providers: [FetchRepoService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -88,10 +88,10 @@ describe('SearchRepoComponentComponent', () => {
 
   it('should unsubscribe on ngOnDestroy', () => {
     if (component.subscription) {
-        spyOn(component.subscription, 'unsubscribe');
-        component.ngOnDestroy();
-        expect(component.subscription.unsubscribe).toHaveBeenCalled();
+      spyOn(component.subscription, 'unsubscribe');
+      component.ngOnDestroy();
+      expect(component.subscription.unsubscribe).toHaveBeenCalled();
     }
-});
+  });
 
 });

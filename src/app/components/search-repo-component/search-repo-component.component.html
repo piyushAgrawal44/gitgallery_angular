@@ -1,5 +1,6 @@
 <div class="p-2 text-gray-50 ">
     <div class="p-2">
+        <a routerLink="/" routerLinkActive="active">⬅️</a>
         <div class="w-full">
             <h4 class="font-semibold text-xl sm:text-3xl text-center my-4">GitGallery - Explore GitHub</h4>
             <div class="mt-2 mb-5 flex justify-center gap-2">
@@ -20,7 +21,7 @@
             <div class="flex flex-wrap text-sm" id="details">
                 <div class="w-full md:w-[25%] p-2  text-center mb-3">
                     <div class="bg-[#2A272A]  rounded-2xl p-5" style="max-width: 100%;">
-                        <h5 class="text-start mb-3"><u>About:</u></h5>
+                        <h5 class="text-start text-lg mb-3"><u>About:</u></h5>
                         <div class="flex flex-col justify-center relative">
                             <img [src]="userDetails.avatar_url"
                                 class="w-[100px] max-w-full mx-auto rounded-full transition duration-500 hover:animate-spin-slow "
@@ -57,7 +58,7 @@
                                 <span class="block" style="color: rgb(170, 170, 170);">GITHUB URL</span>
                                 <span class="block text-blue-500 truncate" id="githuburl"><a data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="{{userDetails.html_url}}"
-                                        class="text-decoration-none"
+                                        class="text-decoration-none" target="_blank"
                                         href="{{userDetails.html_url}}">@{{userDetails.login}}</a></span>
                             </div>
                         </div>
@@ -97,7 +98,7 @@
 
                     <div class="bg-[#2A272A]  rounded-2xl p-5" style="position: relative;">
                         <div class="mb-3 grid sm:flex gap-2 justify-between items-center">
-                            <h5 class="text-start" style="flex-shrink: 0;"><u>Repositories:</u></h5>
+                            <h5 class="text-start text-lg" style="flex-shrink: 0;"><u>Repositories:</u></h5>
 
 
                             <div class="relative ">
@@ -170,9 +171,9 @@
                 <div *ngIf="selectedModal.topics.length > 0">
                     <p class="mt-2">Topics:</p>
 
-                    <div class="mt-2 flex gap-2 w-auto hide-scrollbar overflow-x-auto">
+                    <div class="mt-2 flex items-center gap-2 w-auto hide-scrollbar overflow-x-auto">
                         <span *ngFor="let topic of selectedModal.topics"
-                            class="px-2 py-[2px] rounded-full text-center rounded-pill border-[1px] border-gray-500 text-[10px]">{{
+                            class="px-2 py-[2px] rounded-full text-center rounded-pill border-[1px] border-gray-500 text-[10px] min-w-fit">{{
                             topic }}</span>
                     </div>
 

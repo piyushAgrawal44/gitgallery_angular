@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { FetchRepoService } from 'src/app/services/fetch-repo.service';
 @Component({
@@ -21,7 +22,7 @@ export class SearchRepoComponentComponent {
   isRepoLoading: boolean = true;
   isImageLoading: boolean = true;
 
-  constructor(private FetchRepoService: FetchRepoService) {
+  constructor(private toastr: ToastrService, private FetchRepoService: FetchRepoService) {
 
     const currentUrl = window.location.search;
     const urlParams = new URLSearchParams(currentUrl);
@@ -86,7 +87,15 @@ export class SearchRepoComponentComponent {
           this.fetchData();
         },
         (error) => {
-          console.error(error);
+          console.error(error,"hello");
+          this.isRepoLoading = false;
+          this.isImageLoading = false;
+          this.toastr.error("Internal server error.", 'Error', {
+            timeOut: 3000 ,
+            positionClass: 'toast-top-right',
+            toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+          });
+          
         }
       );
   }
@@ -99,15 +108,17 @@ export class SearchRepoComponentComponent {
       this.subscription = this.FetchRepoService.totalRepo(this.usernameRef, this.query)
         .subscribe(
           async (response) => {
-
-
             this.repos.total_count = response.total_count;
-
-
-            
           },
           (error) => {
             console.error(error);
+            this.isRepoLoading = false;
+            this.isImageLoading = false;
+            this.toastr.error("Internal server error.", 'Error', {
+              timeOut: 3000 ,
+              positionClass: 'toast-top-right',
+              toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+            });
           }
         );
     }
@@ -134,6 +145,13 @@ export class SearchRepoComponentComponent {
         },
         (error) => {
           console.error(error);
+          this.isRepoLoading = false;
+          this.isImageLoading = false;
+          this.toastr.error("Internal server error.", 'Error', {
+            timeOut: 3000 ,
+            positionClass: 'toast-top-right',
+            toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+          });
         }
       );
 

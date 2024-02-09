@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { FetchUserService } from 'src/app/services/fetch-user.service';
 
@@ -18,7 +19,7 @@ export class SearchUserComponentComponent implements OnInit {
   isPageLoading: boolean = true;
   private fetchDataSubscription: Subscription | undefined;
 
-  constructor(private FetchUserService: FetchUserService) {
+  constructor(private toastr: ToastrService, private FetchUserService: FetchUserService) {
   }
 
   ngOnDestroy(): void {
@@ -68,6 +69,11 @@ export class SearchUserComponentComponent implements OnInit {
         },
         (error) => {
           console.error(error);
+          this.toastr.error("Internal server error.", 'Error', {
+            timeOut: 3000 ,
+            positionClass: 'toast-top-right',
+            toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+          });
           // Handle error
         }
       );

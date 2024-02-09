@@ -25,10 +25,10 @@
                     <div class="flex flex-wrap justify-center w-full gap-3">
                         <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5"
                             *ngFor="let data of users.items">
-                            <a [href]="'./search/repo?username=' + data.login" class="text-decoration-none max-w-fit">
+                            <a routerLink="./search/repo" [queryParams]="{ username: data.login }" routerLinkActive="active" class="text-decoration-none max-w-fit">
                                 <div class="">
                                     <img [src]="data.avatar_url"
-                                        class=" w-[120px]  mx-auto object-cover rounded-full transition duration-500 hover:animate-spin-slow "
+                                        class="w-[150px] xm:w-[120px]  mx-auto object-cover rounded-full transition duration-500 hover:animate-spin-slow "
                                         alt="avatarImg">
                                     <div class="loader imgLoader"></div>
                                 </div>
