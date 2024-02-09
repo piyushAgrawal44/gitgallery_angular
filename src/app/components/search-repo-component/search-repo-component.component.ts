@@ -20,7 +20,7 @@ export class SearchRepoComponentComponent {
   public_repo_count: number = 0;
   queryUsername: string = "piyushAgrawal44";
   isRepoLoading: boolean = true;
-  isImageLoading: boolean = true;
+  isUserLoading: boolean = true;
 
   constructor(private toastr: ToastrService, private FetchRepoService: FetchRepoService) {
 
@@ -89,7 +89,7 @@ export class SearchRepoComponentComponent {
         (error) => {
           console.error(error,"hello");
           this.isRepoLoading = false;
-          this.isImageLoading = false;
+          this.isUserLoading = false;
           this.toastr.error("Internal server error.", 'Error', {
             timeOut: 3000 ,
             positionClass: 'toast-top-right',
@@ -113,7 +113,7 @@ export class SearchRepoComponentComponent {
           (error) => {
             console.error(error);
             this.isRepoLoading = false;
-            this.isImageLoading = false;
+            this.isUserLoading = false;
             this.toastr.error("Internal server error.", 'Error', {
               timeOut: 3000 ,
               positionClass: 'toast-top-right',
@@ -140,13 +140,13 @@ export class SearchRepoComponentComponent {
           }
 
           this.isRepoLoading = false;
-          this.isImageLoading=false;
+          this.isUserLoading=false;
 
         },
         (error) => {
           console.error(error);
           this.isRepoLoading = false;
-          this.isImageLoading = false;
+          this.isUserLoading = false;
           this.toastr.error("Internal server error.", 'Error', {
             timeOut: 3000 ,
             positionClass: 'toast-top-right',
@@ -160,7 +160,7 @@ export class SearchRepoComponentComponent {
 
 
   searchUser(): void {
-    this.isRepoLoading = true;
+    this.isUserLoading = true;
     this.page = 1;
     this.fetchUserDetails();
     this.fetchData();

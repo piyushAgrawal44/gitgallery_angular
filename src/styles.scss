@@ -16,12 +16,15 @@
     0% {
         transform: rotate(0deg);
     }
+
     40% {
         transform: rotate(10deg);
     }
+
     80% {
         transform: rotate(-10deg);
     }
+
     100% {
         transform: rotate(0deg);
     }
@@ -37,5 +40,19 @@
 }
 
 
-/* styles.css or styles.scss */
-/* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
+.animate-shimmer {
+    animation: shimmer 1.2s infinite linear;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.7));
+    background-size: 200px 100%;
+}
+
+
+@keyframes shimmer {
+    0% {
+        background-position: -100px 0;
+    }
+
+    100% {
+        background-position: 100px 0;
+    }
+}

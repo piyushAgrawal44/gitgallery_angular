@@ -12,7 +12,8 @@
                     </div>
                     <input type="text"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 "
-                        id="username" placeholder="Type name..." [(ngModel)]="usernameRef" (keydown.enter)="searchUser()">
+                        id="username" placeholder="Type name..." [(ngModel)]="usernameRef"
+                        (keydown.enter)="searchUser()">
                 </div>
                 <button class="bg-blue-600 text-gray-50 px-3 py-1 rounded-lg" (click)="searchUser()"><i
                         class="bi bi-search"></i></button>
@@ -22,69 +23,100 @@
                 <div class="w-full md:w-[25%] p-2  text-center mb-3">
                     <div class="bg-[#2A272A]  rounded-2xl p-5" style="max-width: 100%;">
                         <h5 class="text-start text-lg mb-3"><u>About:</u></h5>
-                        <div class="flex flex-col justify-center relative">
-                            <img [src]="userDetails.avatar_url"
-                                class="w-[100px] max-w-full mx-auto rounded-full transition duration-500 hover:animate-spin-slow "
-                                id="avatarImg" alt="avatar">
-                            <div *ngIf="isImageLoading"
-                                class="absolute top-0  w-[100px] left-[calc(50%-50px)] h-full flex justify-center items-center bg-gray-300  z-50">
-                                <div class="flex items-center justify-center h-screen">
-                                    <div
-                                        class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-blue-600">
-                                    </div>
+                        <div *ngIf="!isUserLoading">
+                            <div class="flex flex-col justify-center relative">
+                                <img [src]="userDetails.avatar_url"
+                                    class="w-[100px] max-w-full mx-auto rounded-full transition duration-500 hover:animate-spin-slow "
+                                    id="avatarImg" alt="avatar">
+
+                            </div>
+                            <h5 class="mt-2 name text-lg" id="name">{{userDetails.name ?? userDetails.login}}</h5>
+
+                            <p class="text-start my-2" id="bio">
+                                {{userDetails.bio ?? "Github User"}}
+                            </p>
+
+                            <div class="flex justify-between mb-2" style="font-size: 12px;">
+                                <span class="my-1 ">Followers: <span
+                                        id="followers">{{userDetails.followers??0}}</span></span>
+                                <span class="my-1 ">Public Repo: <span
+                                        id="total_repos">{{userDetails.public_repos??0}}</span></span>
+                            </div>
+
+                            <hr style="background-color: white; height: 2px;" />
+
+                            <div class="flex gap-2  items-center my-3">
+                                <div class="social_icons">
+                                    📂
+                                </div>
+                                <div class="text-start overflow-hidden">
+                                    <span class="block" style="color: rgb(170, 170, 170);">GITHUB URL</span>
+                                    <span class="block text-blue-500 truncate" id="githuburl"><a
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{userDetails.html_url}}" class="text-decoration-none"
+                                            target="_blank"
+                                            href="{{userDetails.html_url}}">@{{userDetails.login}}</a></span>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 flex gap-2 text-light items-center mb-3 ">
+                                <div class="social_icons">
+                                    📬
+                                </div>
+                                <div class="text-start social_links">
+                                    <span class="block" style="color: rgb(170, 170, 170);">EMAIL</span>
+                                    <span class="block text-overflow-ellipsis" id="emailid"><a
+                                            title="{{userDetails.email}}" class="text-decoration-none"
+                                            href="mailto:{{userDetails.email}}">{{userDetails.email??"NA"}}</a></span>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2 text-light items-center mb-3">
+                                <div class="social_icons">
+                                    📍
+                                </div>
+                                <div class="text-start social_links">
+                                    <span class="block" style="color: rgb(170, 170, 170);">LOCATION</span>
+                                    <span class="block " id="location"><span title="{{userDetails.location}}"
+                                            class="text-decoration-none">{{userDetails.location ??"NA"}}</span></span>
                                 </div>
                             </div>
                         </div>
-                        <h5 class="mt-2 name text-lg" id="name">{{userDetails.name ?? userDetails.login}}</h5>
 
-                        <p class="text-start my-2" id="bio">
-                            {{userDetails.bio ?? "Github User"}}
-                        </p>
+                        <div *ngIf="isUserLoading">
 
-                        <div class="flex justify-between mb-2" style="font-size: 12px;">
-                            <span class="my-1 ">Followers: <span
-                                    id="followers">{{userDetails.followers??0}}</span></span>
-                            <span class="my-1 ">Public Repo: <span
-                                    id="total_repos">{{userDetails.public_repos??0}}</span></span>
+                            <div class="flex flex-col items-center-center">
+                                <div class="w-20 h-20 mb-1 mx-auto rounded-full animate-shimmer">
+                                </div>
+                                <div class="w-[100px] h-[15px] mb-5 1 mx-auto rounded-[8px] animate-shimmer">
+                                </div>
+                            </div>
+
+                            <div class="w-[90%] h-[15px] mb-1  rounded-[8px] animate-shimmer">
+                            </div>
+                            <div class="w-[100%] h-[15px] mb-1 rounded-[8px] animate-shimmer">
+                            </div>
+                            <div class="w-[80%] h-[15px] mb-1 rounded-[8px] animate-shimmer">
+                            </div>
+
+                            <div class="mt-5 flex justify-between">
+                                <div class="w-[40px] h-[15px] mb-1 rounded-[8px] animate-shimmer">
+                                </div>
+                                <div class="w-[40px] h-[15px] mb-1 rounded-[8px] animate-shimmer">
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                <div class="w-[100%] h-[15px] mb-3  rounded-[8px] animate-shimmer">
+                                </div>
+                                <div class="w-[100%] h-[15px] mb-3 rounded-[8px] animate-shimmer">
+                                </div>
+                                <div class="w-[100%] h-[15px] mb-3 rounded-[8px] animate-shimmer">
+                                </div>
+                            </div>
+
                         </div>
 
-                        <hr style="background-color: white; height: 2px;" />
-
-                        <div class="flex gap-2  items-center my-3">
-                            <div class="social_icons">
-                                📂
-                            </div>
-                            <div class="text-start overflow-hidden">
-                                <span class="block" style="color: rgb(170, 170, 170);">GITHUB URL</span>
-                                <span class="block text-blue-500 truncate" id="githuburl"><a data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="{{userDetails.html_url}}"
-                                        class="text-decoration-none" target="_blank"
-                                        href="{{userDetails.html_url}}">@{{userDetails.login}}</a></span>
-                            </div>
-                        </div>
-
-                        <div class="mt-2 flex gap-2 text-light items-center mb-3 ">
-                            <div class="social_icons">
-                                📬
-                            </div>
-                            <div class="text-start social_links">
-                                <span class="block" style="color: rgb(170, 170, 170);">EMAIL</span>
-                                <span class="block text-overflow-ellipsis" id="emailid"><a title="{{userDetails.email}}"
-                                        class="text-decoration-none"
-                                        href="mailto:{{userDetails.email}}">{{userDetails.email??"NA"}}</a></span>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-2 text-light items-center mb-3">
-                            <div class="social_icons">
-                                📍
-                            </div>
-                            <div class="text-start social_links">
-                                <span class="block" style="color: rgb(170, 170, 170);">LOCATION</span>
-                                <span class="block " id="location"><span title="{{userDetails.location}}"
-                                        class="text-decoration-none">{{userDetails.location ??"NA"}}</span></span>
-                            </div>
-                        </div>
 
 
 
@@ -116,35 +148,80 @@
                             </div>
                         </div>
 
-                        <div class="flex flex-wrap justify-center sm:justify-start w-full relative">
-                            <div class=" p-2 w-full xm:w-[50%] lg:w-[33%] " *ngFor="let repo of repos.items"
-                                (click)="openModal(repo)">
-                                <div
-                                    class="cursor-pointer text-start border-[2px] w-full border-gray-700 rounded-2xl py-2 px-3 h-[100px] ">
-                                    <div class="mb-2 flex items-center gap-2">
-                                        <div [title]="repo.name"
-                                            class="text-lg font-medium max-w-full truncate">{{ repo.name
-                                            }}</div>
+                        <div *ngIf="!isRepoLoading && !isUserLoading">
 
-                                        <a href="{{ repo.html_url }}" target="_blank"
-                                            class="text-decoration-none text-blue-500"><i
-                                                class="bi bi-link-45deg"></i></a>
-                                    </div>
-                                    <h6 class="text-gray-300 cursor-pointer line-clamp-2" [title]="repo.description">{{
-                                        repo.description || 'Github Repo' }}</h6>
 
-                                </div>
-                            </div>
-
-                            <div class="text-center" *ngIf="repos.items.length === 0">
-                                <span class="text-gray-50">No repo found...</span>
-                            </div>
-
-                            <div *ngIf="isRepoLoading"
-                                class="absolute w-full h-full flex justify-center items-center bg-gray-300 opacity-80 z-50">
-                                <div class="flex items-center justify-center h-screen">
+                            <div class="flex flex-wrap justify-center sm:justify-start w-full relative">
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%] " *ngFor="let repo of repos.items"
+                                    (click)="openModal(repo)">
                                     <div
-                                        class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-blue-600">
+                                        class="cursor-pointer text-start border-[2px] w-full border-gray-700 rounded-2xl py-2 px-3 h-[100px] ">
+                                        <div class="mb-2 flex items-center gap-2">
+                                            <div [title]="repo.name" class="text-lg font-medium max-w-full truncate">{{
+                                                repo.name
+                                                }}</div>
+
+                                            <a href="{{ repo.html_url }}" target="_blank"
+                                                class="text-decoration-none text-blue-500"><i
+                                                    class="bi bi-link-45deg"></i></a>
+                                        </div>
+                                        <h6 class="text-gray-300 cursor-pointer line-clamp-2"
+                                            [title]="repo.description">{{
+                                            repo.description || 'Github Repo' }}</h6>
+
+                                    </div>
+                                </div>
+
+                                <div class="text-center" *ngIf="repos.items.length === 0">
+                                    <span class="text-gray-50">No repo found...</span>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <div *ngIf="isRepoLoading || isUserLoading">
+
+                            <div class="flex flex-wrap justify-center sm:justify-start w-full relative">
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px]  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full xm:w-[50%] lg:w-[33%]">
+                                    <div class="w-full h-[100px] mx-auto  rounded-[12px] animate-shimmer">
                                     </div>
                                 </div>
                             </div>
@@ -159,6 +236,8 @@
                     </div>
                 </div>
             </div>
+
+
 
             <app-modal *ngIf="isModalOpen" (closeModalEvent)="closeModal()">
                 <!-- Content to display in the modal -->
@@ -181,11 +260,6 @@
             </app-modal>
 
 
-
-            <!-- loader -->
-            <div class="loader-div" id="loader">
-                <div class="loader"></div>
-            </div>
         </div>
     </div>
 

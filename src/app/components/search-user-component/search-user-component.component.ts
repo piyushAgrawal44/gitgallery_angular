@@ -68,7 +68,7 @@ export class SearchUserComponentComponent implements OnInit {
           // usersReference = users;
         },
         (error) => {
-          console.error(error);
+          this.isPageLoading = false;
           this.toastr.error("Internal server error.", 'Error', {
             timeOut: 3000 ,
             positionClass: 'toast-top-right',
@@ -82,11 +82,8 @@ export class SearchUserComponentComponent implements OnInit {
 
   searchUser(): void {
     this.page = 1;
-
     this.isPageLoading = true;
     this.fetchData();
   }
-
-
 
 }

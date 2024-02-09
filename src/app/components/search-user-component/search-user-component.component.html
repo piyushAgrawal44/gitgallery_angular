@@ -18,31 +18,83 @@
                         class="bi bi-search"></i></button>
             </div>
 
-            <div class="mb-3 px-4">
+           
+           
+
+            <div  class="mb-3 px-4">
 
                 <div class="bg-[#2A272A] rounded-lg py-10 px-3 ">
 
-                    <div class="flex flex-wrap justify-center w-full gap-3">
-                        <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5"
-                            *ngFor="let data of users.items">
-                            <a routerLink="./search/repo" [queryParams]="{ username: data.login }" routerLinkActive="active" class="text-decoration-none max-w-fit">
-                                <div class="">
-                                    <img [src]="data.avatar_url"
-                                        class="w-[150px] xm:w-[120px]  mx-auto object-cover rounded-full transition duration-500 hover:animate-spin-slow "
-                                        alt="avatarImg">
-                                    <div class="loader imgLoader"></div>
-                                </div>
-                                <h5 class="mt-1 text-light max-w-[120px]  mx-auto truncate"
-                                    [title]="data.name ?? data.login"> {{data.name ?? data.login }}</h5>
-                            </a>
+                    <div *ngIf="!isPageLoading">
+                        <div class="flex flex-wrap justify-center w-full gap-3">
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5"
+                                *ngFor="let data of users.items">
+                                <a routerLink="./search/repo" [queryParams]="{ username: data.login }" routerLinkActive="active" class="text-decoration-none max-w-fit">
+                                    <div class="">
+                                        <img [src]="data.avatar_url"
+                                            class="w-[150px] xm:w-[120px]  mx-auto object-cover rounded-full transition duration-500 hover:animate-spin-slow "
+                                            alt="avatarImg">
+                                        <div class="loader imgLoader"></div>
+                                    </div>
+                                    <h5 class="mt-1 text-light max-w-[120px]  mx-auto truncate"
+                                        [title]="data.name ?? data.login"> {{data.name ?? data.login }}</h5>
+                                </a>
+                            </div>
+                        </div>
+    
+    
+                        <div class="text-center" *ngIf="users.items.length === 0">
+                            <span class="text-gray-50">No user found...</span>
+                        </div>
+    
+                    </div>
+
+                    <div *ngIf="isPageLoading" >
+
+                        <div class="flex flex-wrap justify-center w-full gap-3">
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            <div class="w-full xm:w-[calc(50%-12px)] sm:w-[calc(33%-9px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-12px)] text-center mb-5">
+                                <div class="w-20 h-20 mx-auto  rounded-full animate-shimmer"></div>
+                                <div class="w-20 h-[20px] mt-3 mx-auto  rounded-[12px] animate-shimmer"></div>
+                            </div>
+                            
                         </div>
                     </div>
-
-
-                    <div class="text-center" *ngIf="users.items.length === 0">
-                        <span class="text-gray-50">No user found...</span>
-                    </div>
-
 
                     <div class="px-10">
                         <hr class="mt-5 mb-5 bg-gray-500 h-[1px] border-none">
@@ -54,15 +106,18 @@
             </div>
 
 
+            <!-- Loader -->
+
+            
 
 
         </div>
     </div>
 </div>
 
-<div *ngIf="isPageLoading" class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-300 opacity-80 z-50">
+<!-- <div *ngIf="isPageLoading" class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-300 opacity-80 z-50">
     <div class="flex items-center justify-center h-screen">
         <div class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-blue-600">
         </div>
     </div>
-</div>
+</div> -->
