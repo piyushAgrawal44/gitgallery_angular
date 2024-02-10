@@ -67,15 +67,15 @@ export class SearchUserComponentComponent implements OnInit {
             this.users.total_count = 1000; // limited by github
           }
 
-          response.items.forEach((user: { avatar_url: string }) => {
-            this.imageLoading[user.avatar_url] = false;
-          });
+          // response.items.forEach((user: { avatar_url: string }) => {
+          //   this.imageLoading[user.avatar_url] = this.imageLoading[user.avatar_url] ?? false;
+          // });
 
-          setTimeout(() => {
-            response.items.forEach((user: { avatar_url: string }) => {
-              this.imageLoading[user.avatar_url] = true;
-            });
-          }, 2000);
+          // setTimeout(() => {
+          //   response.items.forEach((user: { avatar_url: string }) => {
+          //     this.imageLoading[user.avatar_url] = true;
+          //   });
+          // }, 2000);
 
           this.totalPages = Math.ceil(this.users.total_count / this.perPage);
           // usersReference = users;
