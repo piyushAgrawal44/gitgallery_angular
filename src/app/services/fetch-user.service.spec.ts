@@ -17,10 +17,45 @@ describe('FetchUserService', () => {
     httpMock.verify();
   });
 
+  // checking service created
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
+  // testing service for a blank query
+  it('should give error from the GitHub API for blank query', () => {
+    const username = '';
+    const perPage = 2;
+    const page = 1;
+
+    // Mock response data
+    const mockResponse = {
+      message: "Validation Failed",
+      errors: [
+        {
+          resource: "Search",
+          field: "q",
+          code: "missing"
+        }
+      ],
+      documentation_url: "https://docs.github.com/v3/search"
+    }
+
+
+    // Call the service method
+    service.fetchUsers(username, perPage, page).subscribe(users => {
+      expect(users).toEqual(mockResponse);
+    });
+
+    // Expect a single request to the GitHub API with the correct URL
+    const req = httpMock.expectOne(`https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=${perPage}&page=${page}`);
+    expect(req.request.method).toBe('GET');
+
+    // Respond with mock data
+    req.flush(mockResponse);
+  });
+
+  // testing service for a query
   it('should fetch users from the GitHub API', () => {
     const username = 'piyush';
     const perPage = 2;

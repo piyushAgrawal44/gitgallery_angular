@@ -18,8 +18,8 @@ import { CacheInterceptor } from './cache.interceptor';
     SearchUserComponentComponent,
     SearchRepoComponentComponent,
     PaginationComponent,
-    NotfoundComponent,
-    ModalComponent,
+    NotfoundComponent, // not found page 
+    ModalComponent, // modal component to show repository details
   ],
   imports: [
     BrowserModule,
@@ -27,12 +27,12 @@ import { CacheInterceptor } from './cache.interceptor';
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(), 
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: CacheInterceptor,
+      useClass: CacheInterceptor, // Interceptor for caching API response and using them
       multi: true,
     },
   ],

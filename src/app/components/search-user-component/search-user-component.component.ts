@@ -11,42 +11,45 @@ import { FetchUserService } from 'src/app/services/fetch-user.service';
 })
 export class SearchUserComponentComponent implements OnInit {
 
-  usernameRef: string = 'piyush agrawal';
-  perPage = 10;
-  page = 1;
-  totalPages: number = 0;
-  users: any = { total_count: 0, items: [] };
-  isPageLoading: boolean = true;
-  imageLoading: { [key: string]: boolean } = {};
+  usernameRef: string = 'piyush agrawal'; // default query username
+  perPage = 10; // display 10 users by default
+  page = 1; // display 1 by default
+  totalPages: number = 0; // total pages for pagination
+  users: any = { total_count: 0, items: [] }; // initial state for users obj, items array will contain users list
+  isPageLoading: boolean = true; // skeleton loader is based on this variable
+
   private fetchDataSubscription: Subscription | undefined;
 
   constructor(private toastr: ToastrService, private FetchUserService: FetchUserService) {
   }
 
-  ngOnDestroy(): void {
-    // Unsubscribe from the subscription when the component is destroyed
-    if (this.fetchDataSubscription) {
-      this.fetchDataSubscription.unsubscribe();
-    }
-  }
 
   ngOnInit(): void {
-    this.fetchData();
+    this.fetchData(); // fetch initial data
   }
 
+  // function to change the page
   pageChange(val: number = 1): void {
     this.page = val;
     this.isPageLoading = true;
     this.fetchData();
   }
 
+  // function to set per page display user count
   perPageChange(val: number = 10): void {
     this.perPage = val;
-    console.log(val, 'perpage');
     this.page = 1;
     this.isPageLoading = true;
     this.fetchData();
   }
+
+  // search users for a new query
+  searchUser(): void {
+    this.page = 1;
+    this.isPageLoading = true;
+    this.fetchData();
+  }
+
 
   fetchData(): void {
 
@@ -64,21 +67,10 @@ export class SearchUserComponentComponent implements OnInit {
 
           this.isPageLoading = false;
           if (this.users.total_count > 1000) {
-            this.users.total_count = 1000; // limited by github
+            this.users.total_count = 1000; // limited by github. Github shows first 1000 users or repos only
           }
 
-          // response.items.forEach((user: { avatar_url: string }) => {
-          //   this.imageLoading[user.avatar_url] = this.imageLoading[user.avatar_url] ?? false;
-          // });
-
-          // setTimeout(() => {
-          //   response.items.forEach((user: { avatar_url: string }) => {
-          //     this.imageLoading[user.avatar_url] = true;
-          //   });
-          // }, 2000);
-
           this.totalPages = Math.ceil(this.users.total_count / this.perPage);
-          // usersReference = users;
         },
         (error) => {
           this.isPageLoading = false;
@@ -108,16 +100,11 @@ export class SearchUserComponentComponent implements OnInit {
       );
   }
 
-  onImageLoad(url: string) {
-   
-    this.imageLoading[url] = true;
-    console.log(url)
-  }
-
-  searchUser(): void {
-    this.page = 1;
-    this.isPageLoading = true;
-    this.fetchData();
+  ngOnDestroy(): void {
+    // Unsubscribe from the subscription when the component is destroyed
+    if (this.fetchDataSubscription) {
+      this.fetchDataSubscription.unsubscribe();
+    }
   }
 
 }

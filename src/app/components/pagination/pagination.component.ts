@@ -27,6 +27,7 @@ export class PaginationComponent {
     let dotCnt1 = 0;
     let dotCnt2 = 0;
 
+    // generate array for showing page and ... 
     while (index <= this.totalPages) {
       const isWithinRange1 = (index < (this.currentPage - 1)) && index > 1;
       const isWithinRange2 = (index > (this.currentPage + 1)) && index < this.totalPages;
