@@ -22,7 +22,6 @@ export class FetchUserService {
     // check the environment if it is production then use auth token other wise fetch data with auth toke.
     // this way it will work if you do not set env correctly
     if( environment.production===true){
-      console.log('production code')
       return this.http.get(`https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=${perPage}&page=${page}`, {headers});
     }
     else{
