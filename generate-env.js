@@ -19,4 +19,11 @@ fs.readFile('src/environments/environment.sample.ts', 'utf8', (err, data) => {
     }
     console.log('Environment file generated successfully!');
   });
+  fs.writeFile('src/environments/environment.ts', environment, 'utf8', err => {
+    if (err) {
+      console.error('Error writing environment file:', err);
+      return;
+    }
+    console.log('Environment file generated successfully!');
+  });
 });
