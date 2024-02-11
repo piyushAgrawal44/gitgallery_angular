@@ -41,10 +41,14 @@ cd gitgallery_angular
 3. Install dependencies using npm.
 npm install
 
-4. Start the development server.
+4. Setup env file
+- create environment.ts file in Int scr/environments/ and copy content of  environment.sample.ts file
+- Int scr/environments/environment.ts update your github token if you change mode to production
+
+5. Start the development server.
 ng serve
 
-5. Open your web browser and visit `http://localhost:4200` to view the application.
+6. Open your web browser and visit `http://localhost:4200` to view the application.
 
 
 ## Contributing

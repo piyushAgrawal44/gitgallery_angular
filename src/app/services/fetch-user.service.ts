@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,19 @@ export class FetchUserService {
     // this service search all the public users available on github for a given query 
     // username is the query user name. page and perPage is responsible for pagination 
 
-    
-    return this.http.get(`https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=${perPage}&page=${page}`);
+    // auth token github
+    const headers = new HttpHeaders({
+      'Authorization': `token ${environment.github_token ?? ""}`
+    });
+
+    // check the environment if it is production then use auth token other wise fetch data with auth toke.
+    // this way it will work if you do not set env correctly
+    if( environment.production===true){
+      console.log('production code')
+      return this.http.get(`https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=${perPage}&page=${page}`, {headers});
+    }
+    else{
+      return this.http.get(`https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=${perPage}&page=${page}`);
+    }
   }
 }
