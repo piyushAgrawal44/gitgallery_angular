@@ -11,7 +11,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CacheInterceptor } from './cache.interceptor';
+import { CacheInterceptor } from './interceptors/cache.interceptor';
 @NgModule({
   declarations: [
     AppComponent,

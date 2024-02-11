@@ -8,22 +8,26 @@ https://gitgallery-angular-piyush.netlify.app/
 ## Assignment Details
 I have implemented this assignment using the Angular framework only, as instructed. Additionally, I forked the provided repository and worked on my assignment within the forked repository only. I have also written test case for 1 service and 1 component. Along with this I have implemented skeleton loader, GET API caching etc as per the instruction.
 
-## I have written Test Case for 
-Service - services/fetch-user.service
-component - pagination component
-
-
 ## Features
+- **Search Users**: Easily search for public github profiles by entering keywords or phrases.
 - **Search Repositories**: Easily search for repositories by entering keywords or phrases.
 - **View Repository Details**: Get detailed information about each repository, including the owner, description, name,and more.
-- **Explore Trending Repositories**: Discover trending repositories across different programming languages and categories.
 - **User-Friendly Interface**: Intuitive and responsive user interface for seamless navigation and interaction.
+
+## How to use this software
+- When you open this page (https://gitgallery-angular-piyush.netlify.app/) so you are on user listing page. Here you can search for any user name. 
+- Then click on any user for which you want to see repos. When you click so you are redirected to repos listing page of that user. Here you can search any public repos keyword. Also from top search bar you can directly change username also.
 
 ## Technologies Used
 - **Angular**: Frontend framework used for building the application.
 - **GitHub API**: Integration with the GitHub API to fetch repository data.
 - **HTML/CSS/JavaScript**: Standard web technologies for structuring, styling, and scripting the application.
 - **Tailwind CSS**: Used Tailwind css for modern appealing UI
+
+
+## I have written Test Case for 
+Service - services/fetch-user.service
+component - app/components/pagination-component
 
 ## Installation
 To run GitGallery locally, follow these steps:

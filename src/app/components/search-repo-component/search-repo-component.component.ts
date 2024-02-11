@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 import { FetchRepoService } from 'src/app/services/fetch-repo.service';
 @Component({
   selector: 'app-search-repo-component',
@@ -37,45 +37,42 @@ export class SearchRepoComponentComponent {
 
   ngOnInit(): void {
     // after initialization
-    this.isUserLoading = true;  
-    this.callApis();
+    this.callUserApi(); // i have fetch user api because query blank and repo total count will depend on user public repo 
+    // so we will callRepoAPI after user api is completed
   }
 
-  async callApis(): Promise<void> {
-    
+  async callUserApi(): Promise<void> {
+
     try {
-      await Promise.all([this.fetchUserDetails(), this.query && this.fetchTotalRepo()]);
+      this.isUserLoading = true;
+      await this.fetchUserDetails();
     } catch (error) {
       // Handle error if any of the promises fail
       this.handleError(error);
     } finally {
-      // All data fetching functions have completed
-      // Set loader to false
+      // Set user loader to false
       this.isUserLoading = false;
-      this.isRepoLoading = false;
     }
   };
 
   async callRepoAPI(): Promise<void> {
-    
+
     try {
+      this.isRepoLoading = true;
       await Promise.all([this.fetchData(), this.query && this.fetchTotalRepo()]);
     } catch (error) {
       // Handle error if any of the promises fail
       this.handleError(error);
     } finally {
       // All data fetching functions have completed
-      // Set loader to false
+      // Set repo loader to false
       this.isRepoLoading = false;
-      this.isUserLoading = false;
     }
   }
 
   // function to change the page
   pageChange(val: number = 1): void {
     this.page = val;
-    this.isRepoLoading = true;
-    console.log()
     this.callRepoAPI();
   }
 
@@ -83,23 +80,19 @@ export class SearchRepoComponentComponent {
   perPageChange(val: number = 10): void {
     this.perPage = val;
     this.page = 1;
-    this.isRepoLoading = true;
     this.callRepoAPI();
   }
 
-  
-
   // searching a new user
   searchUser(): void {
-    this.isUserLoading = true;
+   
     this.page = 1; // setting page to initial state
     this.fetchUserDetails();
   }
   // searching a  repo for given repo query
   searchRepoForQuery(): void {
     this.page = 1;
-    this.isRepoLoading = true;
-    this.callApis();
+    this.callUserApi();
   }
 
   // open modal function - this will open the modal
@@ -115,7 +108,27 @@ export class SearchRepoComponentComponent {
 
 
   // fetch user details
-  fetchUserDetails(): void {
+  async fetchUserDetails(): Promise<void> {
+
+    // Unsubscribe from previous subscription to avoid memory leaks
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+    try {
+      const response = await firstValueFrom(this.FetchRepoService.fetchUserDetails(this.usernameRef));
+      // Process the response here
+      this.userDetails = response;
+      this.public_repo_count = response.public_repos;
+      this.callRepoAPI(); // Call other functions that depend on this response
+    } catch (error) {
+      // Handle any errors
+      this.handleError(error);
+    }
+  }
+
+  // fetch all repo list
+  async fetchData(): Promise<void> {
 
     // Unsubscribe from previous subscription to avoid memory leaks
     if (this.subscription) {
@@ -123,70 +136,40 @@ export class SearchRepoComponentComponent {
     }
 
 
-    this.subscription = this.FetchRepoService.fetchUserDetails(this.usernameRef)
-      .subscribe(
-        async (response) => {
+    try {
+      const response = await firstValueFrom(this.FetchRepoService.fetchRepo(this.usernameRef, this.perPage, this.page, this.query));
+      if (!this.query) {
+        this.repos.items = response;
+   
+        // query is blank so calculate total pages from public repo count
+        this.repos.total_count = this.public_repo_count;
+        this.totalPages = Math.ceil(this.public_repo_count / this.perPage);
+      } else {
+        this.repos.items = response.items;
+      }
 
-          this.userDetails = response;
-          this.public_repo_count = response.public_repos;
-          this.fetchData();
-        },
-        (error) => {
-
-          this.handleError(error);
-
-        }
-      );
-  }
-
-  // fetch all repo list
-  fetchData(): void {
-
-    this.subscription = this.FetchRepoService.fetchRepo(this.usernameRef, this.perPage, this.page, this.query)
-      .subscribe(
-        async (response) => {
-
-          if (!this.query) {
-            this.repos.items = response;
-          }
-          else {
-            this.repos.items = response.items;
-          }
-
-          if (!this.query) {
-            // query is blank so calc total pages from public repo count
-            this.repos.total_count = this.public_repo_count;
-            this.totalPages = Math.ceil(this.public_repo_count / this.perPage);
-          }
-        },
-        (error) => {
-          this.handleError(error);
-        }
-      );
-
-
+      
+    } catch (error) {
+      this.handleError(error);
+    }
   }
 
   // fetch total repo count
-  fetchTotalRepo(): void {
-    if (!this.query) {
-      // query is blank so calc total pages from public repo count
-      this.repos.total_count = this.public_repo_count;
+  async fetchTotalRepo(): Promise<void> {
+    try {
+      if (!this.query) {
+        // If the query is blank, calculate total pages from public repo count
+        this.repos.total_count = this.public_repo_count;
+      } else {
+        // If the query is not blank, fetch the total repo count from the service
+        const response = await firstValueFrom(this.FetchRepoService.totalRepo(this.usernameRef, this.query));
+        this.repos.total_count = response.total_count;
+      }
+      // Calculate total pages based on the total repo count
+      this.totalPages = Math.ceil(this.repos.total_count / this.perPage);
+    } catch (error) {
+      this.handleError(error);
     }
-    else {
-      // if query is not blank then fetch total repo count from service
-      this.subscription = this.FetchRepoService.totalRepo(this.usernameRef, this.query)
-        .subscribe(
-          async (response) => {
-            this.repos.total_count = response.total_count;
-          },
-          (error) => {
-            this.handleError(error);
-          }
-        );
-    }
-    this.totalPages = Math.ceil(this.repos.total_count / this.perPage);
-
   }
 
   // to display errors in front end and logging them

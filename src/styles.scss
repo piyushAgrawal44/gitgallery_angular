@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,6 +12,7 @@
         animation: none;
     }
 }
+
 
 @keyframes rotateAndReturn {
     0% {
@@ -28,6 +30,10 @@
     100% {
         transform: rotate(0deg);
     }
+}
+
+*{
+    font-family: 'Poppins', sans-serif;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

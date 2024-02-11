@@ -20,6 +20,7 @@
             </div>
 
             <div class="flex flex-wrap text-sm" id="details">
+                <!-- about part -->
                 <div class="w-full md:w-[25%] p-2  text-center mb-3">
                     <div class="bg-[#2A272A]  rounded-2xl p-5" style="max-width: 100%;">
                         <h5 class="text-start text-lg mb-3"><u>About:</u></h5>
@@ -86,6 +87,7 @@
                             </div>
                         </div>
 
+                        <!-- Skeleton loader for user details -->
                         <div *ngIf="isUserLoading">
 
                             <div class="flex flex-col items-center-center">
@@ -119,13 +121,10 @@
                             </div>
 
                         </div>
-
                     </div>
-
-
-
-
                 </div>
+
+                <!-- repos part -->
                 <div class="w-full md:w-[75%] p-2 mb-3">
 
                     <div class="bg-[#2A272A]  rounded-2xl p-5" style="position: relative;">
@@ -148,6 +147,8 @@
                             </div>
                         </div>
 
+
+                        
                         <div *ngIf="!isRepoLoading && !isUserLoading">
 
 
@@ -180,6 +181,7 @@
                             </div>
                         </div>
 
+                        <!-- Skeleton loader for repos part -->
                         <div *ngIf="isRepoLoading || isUserLoading">
 
                             <div class="flex flex-wrap justify-center sm:justify-start w-full relative">
@@ -238,6 +240,7 @@
 
 
 
+            <!-- Popup Modal  -->
             <app-modal *ngIf="isModalOpen" (closeModalEvent)="closeModal()">
                 <!-- Content to display in the modal -->
                 <h1 class="text-xl font-bold mb-2"><span [title]="selectedRepo.name"
