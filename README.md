@@ -2,7 +2,7 @@
 ## GitGallery - Explore GitHub
 GitGallery is a web application built with Angular, designed to help users explore GitHub repositories with ease. With GitGallery, users can search for repositories, view details of individual repositories.
 
-## Live URL
+# Live URL
 https://gitgallery-angular-piyush.netlify.app/
 
 ## Assignment Details
@@ -26,8 +26,8 @@ I have implemented this assignment using the Angular framework only, as instruct
 
 
 ## I have written Test Case for 
--Service - services/fetch-user.service
--component - app/components/pagination-component
+Service - services/fetch-user.service
+component - app/components/pagination-component
 
 ## Installation
 To run GitGallery locally, follow these steps:
@@ -55,6 +55,9 @@ Contributions to GitGallery are welcome! If you would like to contribute to the 
 3. Make your changes and commit them with descriptive commit messages.
 4. Push your changes to your fork.
 5. Submit a pull request to the main repository's `develop` branch.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 If you have any questions or suggestions regarding GitGallery, feel free to contact me piyushbansal941@gmail.com
