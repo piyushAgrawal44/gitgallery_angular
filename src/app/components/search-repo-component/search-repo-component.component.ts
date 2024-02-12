@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, firstValueFrom } from 'rxjs';
 import { FetchRepoService } from 'src/app/services/fetch-repo.service';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-search-repo-component',
   templateUrl: './search-repo-component.component.html',
@@ -24,7 +26,7 @@ export class SearchRepoComponentComponent {
   isModalOpen: boolean = false; // by default modal aka popup will be hidden
 
 
-  constructor(private toastr: ToastrService, private FetchRepoService: FetchRepoService) {
+  constructor(private toastr: ToastrService, private FetchRepoService: FetchRepoService, private location: Location) {
 
     const currentUrl = window.location.search;
     const urlParams = new URLSearchParams(currentUrl);
@@ -39,6 +41,10 @@ export class SearchRepoComponentComponent {
     // after initialization
     this.callUserApi(); // i have fetch user api because query blank and repo total count will depend on user public repo 
     // so we will callRepoAPI after user api is completed
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   async callUserApi(): Promise<void> {
