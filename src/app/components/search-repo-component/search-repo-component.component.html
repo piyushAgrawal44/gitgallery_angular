@@ -156,8 +156,8 @@
                                 <div class="p-2 w-full xm:w-[50%] lg:w-[33%] " *ngFor="let repo of repos.items"
                                     (click)="openModal(repo)">
                                     <div
-                                        class="cursor-pointer text-start border-[2px] w-full border-gray-500 rounded-2xl py-2 px-3 h-[100px] ">
-                                        <div class="mb-2 flex items-center gap-2">
+                                        class="cursor-pointer text-start border-[2px] w-full border-gray-500 rounded-2xl py-2 px-3 h-[100px] sm:hover:bg-gray-700">
+                                        <div class="mb-2 flex items-center gap-2 ">
                                             <div [title]="repo.name" class="text-lg font-medium max-w-full truncate">
                                                 <u>{{repo.name}}</u></div>
 

@@ -65,7 +65,7 @@ export class SearchRepoComponentComponent {
 
     try {
       this.isRepoLoading = true;
-      await Promise.all([this.fetchData(), this.query && this.fetchTotalRepo()]);
+      await this.fetchData();
     } catch (error) {
       // Handle error if any of the promises fail
       this.handleError(error);
@@ -151,7 +151,8 @@ export class SearchRepoComponentComponent {
         this.repos.total_count = this.public_repo_count;
         this.totalPages = Math.ceil(this.public_repo_count / this.perPage);
       } else {
-        this.repos.items = response.items;
+        this.repos = response;
+        this.totalPages = Math.ceil(this.repos.total_count / this.perPage);
       }
 
       
@@ -160,23 +161,7 @@ export class SearchRepoComponentComponent {
     }
   }
 
-  // fetch total repo count
-  async fetchTotalRepo(): Promise<void> {
-    try {
-      if (!this.query) {
-        // If the query is blank, calculate total pages from public repo count
-        this.repos.total_count = this.public_repo_count;
-      } else {
-        // If the query is not blank, fetch the total repo count from the service
-        const response = await firstValueFrom(this.FetchRepoService.totalRepo(this.usernameRef, this.query));
-        this.repos.total_count = response.total_count;
-      }
-      // Calculate total pages based on the total repo count
-      this.totalPages = Math.ceil(this.repos.total_count / this.perPage);
-    } catch (error) {
-      this.handleError(error);
-    }
-  }
+  
 
   // to display errors in front end and logging them
   handleError(error: any): void {
