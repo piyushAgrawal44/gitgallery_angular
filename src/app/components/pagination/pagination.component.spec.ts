@@ -23,7 +23,7 @@ describe('PaginationComponent', () => {
   it('should initialize currentPage, totalPages, and perPage with default values', () => {
     expect(component.currentPage).toBe(1);
     expect(component.totalPages).toBe(0);
-    expect(component.perPage).toBe(0);
+    expect(component.perPage).toBe(10);
   });
 
 
@@ -75,6 +75,11 @@ describe('PaginationComponent', () => {
   it('should emit pageChange event with correct value when setPage method is called', () => {
     spyOn(component.pageChange, 'emit');
     const pageNumber = 2;
+    const totalPages = 3;
+    const currentPage = 1;
+    component.totalPages = totalPages;
+    component.currentPage = currentPage;
+    fixture.detectChanges();
 
     component.setPage(pageNumber);
 
@@ -94,6 +99,8 @@ describe('PaginationComponent', () => {
     spyOn(component.pageChange, 'emit');
     component.currentPage = 3;
     component.totalPages = 5;
+
+    
 
     component.nextPage();
 
@@ -161,6 +168,7 @@ describe('PaginationComponent', () => {
 
   it('should render buttons and dots based on pagesArray', () => {
     component.pagesArray = [1, 0, 2, 3, 0, 5]; 
+    fixture.detectChanges();
     // Query all button elements
     const buttons = fixture.debugElement.queryAll(By.css('[data-desktop-id="pagination_btn"] button'));
     expect(buttons.length).toBe(4); // There are 4 buttons in the example data
@@ -173,6 +181,8 @@ describe('PaginationComponent', () => {
   it('should call setPage method with correct page number when a button is clicked', () => {
     spyOn(component, 'setPage'); // Spy on the setPage method
 
+    component.pagesArray = [1, 0, 2, 3, 0, 5];  
+    fixture.detectChanges();
     // Find and click the first button (page 1)
     const firstButton = fixture.debugElement.query(By.css('[data-desktop-id="pagination_btn"] button'));
     firstButton.triggerEventHandler('click', null);

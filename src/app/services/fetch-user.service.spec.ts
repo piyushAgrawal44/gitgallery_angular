@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FetchUserService } from './fetch-user.service';
-import { HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
+
 
 describe('FetchUserService', () => {
 
@@ -8,7 +9,10 @@ describe('FetchUserService', () => {
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule], 
+      providers: [FetchUserService] 
+    });
     service = TestBed.inject(FetchUserService);
     httpMock = TestBed.inject(HttpTestingController);
   });

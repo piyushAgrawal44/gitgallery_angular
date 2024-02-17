@@ -11,7 +11,7 @@
         <div class="inline-block relative mr-1">
             <select data-mobile-id="per_page_selector"
                 class="block appearance-none w-full text-black border px-3 h-10 pr-5 rounded shadow leading-tight focus:outline-blue-400 focus:shadow-outline"
-                aria-label="Per page" (ngModelChange)="setPerPage($event)" [(ngModel)]="perPage">
+                aria-label="Per page" (change)="setPerPage($event)" [value]="perPage">
                 <option selected value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
@@ -66,7 +66,7 @@
             <div class="inline-block relative mr-1">
                 <select
                     class="block appearance-none w-full text-black border px-4 h-10 pr-8 rounded shadow leading-tight focus:outline-blue-400 focus:shadow-outline"
-                    aria-label="Per page" (ngModelChange)="setPerPage($event)" [(ngModel)]="perPage">
+                    aria-label="Per page" (change)="setPerPage($event)" [value]="perPage">
                     <option selected value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>

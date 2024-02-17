@@ -66,8 +66,9 @@ export class PaginationComponent {
   }
 
   setPerPage(event: any) {
-    this.perPage = event;
-    this.perPageChange.emit(event);
+   
+    this.perPage = event.target.value;
+    this.perPageChange.emit(event.target.value);
   }
 
   setPage(val: number) {
