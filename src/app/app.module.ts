@@ -10,8 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CacheInterceptor } from './interceptors/cache.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,12 +22,11 @@ import { CacheInterceptor } from './interceptors/cache.interceptor';
     ModalComponent, // modal component to show repository details
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(), 
+    BrowserModule, // core features
+    HttpClientModule, // to hit http request
+    FormsModule, // to use ngModel
+    AppRoutingModule, // for routing
+    ToastrModule.forRoot(),  // fo showing toaster 
   ],
   providers: [
     {
@@ -38,4 +37,6 @@ import { CacheInterceptor } from './interceptors/cache.interceptor';
   ],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { }

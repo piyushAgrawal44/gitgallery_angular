@@ -91,7 +91,7 @@ export class SearchRepoComponentComponent {
 
   // searching a new user
   searchUser(): void {
-   
+
     this.page = 1; // setting page to initial state
     this.fetchUserDetails();
   }
@@ -146,7 +146,7 @@ export class SearchRepoComponentComponent {
       const response = await firstValueFrom(this.FetchRepoService.fetchRepo(this.usernameRef, this.perPage, this.page, this.query));
       if (!this.query) {
         this.repos.items = response;
-   
+
         // query is blank so calculate total pages from public repo count
         this.repos.total_count = this.public_repo_count;
         this.totalPages = Math.ceil(this.public_repo_count / this.perPage);
@@ -155,13 +155,13 @@ export class SearchRepoComponentComponent {
         this.totalPages = Math.ceil(this.repos.total_count / this.perPage);
       }
 
-      
+
     } catch (error) {
       this.handleError(error);
     }
   }
 
-  
+
 
   // to display errors in front end and logging them
   handleError(error: any): void {
@@ -171,14 +171,16 @@ export class SearchRepoComponentComponent {
       this.toastr.error("No data found for given query.", 'Error', {
         timeOut: 3000,
         positionClass: 'toast-top-right',
-        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]',
+        progressBar: true,
       });
     } else if (error.status === 403) {
       // Rate limit exceeded
       this.toastr.error("API rate limit exceeded. Please try again later.", 'Error', {
         timeOut: 3000,
         positionClass: 'toast-top-right',
-        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]',
+        progressBar: true,
       });
     } else {
       // Default error message for other cases
@@ -186,7 +188,8 @@ export class SearchRepoComponentComponent {
       this.toastr.error("Internal server error.", 'Error', {
         timeOut: 3000,
         positionClass: 'toast-top-right',
-        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]'
+        toastClass: 'fixed max-w-[90%] bg-red-600 text-gray-50 top-1 right-[20px] z-20 p-2 rounded-[12px]',
+        progressBar: true,
       });
     }
   }

@@ -6,7 +6,6 @@ import { FetchUserService } from 'src/app/services/fetch-user.service';
 @Component({
   selector: 'app-search-user-component',
   templateUrl: './search-user-component.component.html',
-
   styleUrls: ['./search-user-component.component.scss']
 })
 export class SearchUserComponentComponent implements OnInit {

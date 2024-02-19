@@ -2,15 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class FetchUserService {
 
+  // http=inject(HttpClient);
   constructor(private http: HttpClient) { }
 
   fetchUsers(username: string, perPage: number, page: number): Observable<any> {
+    
     // this service search all the public users available on github for a given query 
     // username is the query user name. page and perPage is responsible for pagination 
 
